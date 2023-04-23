@@ -12,7 +12,6 @@ const JobDetails = () => {
     const params = useSearchParams();
     const router = useRouter();
     const [refreshing, setRereshing] = useState(false);
-    const onRefresh = () => {};
 
     const { data, isLoading, error, refetch } = useFetch(
         'job-details',
@@ -22,6 +21,12 @@ const JobDetails = () => {
     );
 
     const [activeTab, setActiveTab] = useState(tabs[0]);
+
+    const onRefresh = useCallback(() => {
+        setRereshing(true);
+        refetch();
+        setRereshing(false);
+    }, [])
 
     const displayTabContent = () => {
         switch(activeTab) {
